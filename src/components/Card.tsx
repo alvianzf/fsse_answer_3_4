@@ -40,7 +40,6 @@ function Card() {
 
   const handleLocation = async () => {
     const data = await getCurrent(location);
-    console.log(data);
     setUpdates(data)
   };
 
@@ -53,7 +52,7 @@ function Card() {
       <div className="clock">
         <Clock value={clock}/>
       </div>
-      <div className="location">{weatherData?.name ?? '--'}</div>
+      <div className="location">{weatherData?.name ? (weatherData?.name == 'AxiosError' ? 'City not Found!' : weatherData.name) : "--"}</div>
       <div className="temp">{weatherData?.main?.temp ?? "--"}º</div>
       <div className="weather-icon">
         <span className={icon == "Clouds" ? "material-symbols-outlined active" : "material-symbols-outlined"}>partly_cloudy_day</span>
