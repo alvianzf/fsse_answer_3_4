@@ -53,7 +53,7 @@ function Card() {
         <Clock value={clock}/>
       </div>
       <div className="location">{weatherData?.name ? (weatherData?.name == 'AxiosError' ? 'City not Found!' : weatherData.name) : "--"}</div>
-      <div className="temp">{weatherData?.main?.temp ?? "--"}º</div>
+      <div className="temp">{weatherData?.main?.temp.toFixed(0) ?? "--"}º</div>
       <div className="weather-icon">
         <span className={icon == "Clouds" ? "material-symbols-outlined active" : "material-symbols-outlined"}>partly_cloudy_day</span>
         <span className={icon == "Thunderstorm" ? "material-symbols-outlined active" : "material-symbols-outlined"}>thunderstorm</span>
