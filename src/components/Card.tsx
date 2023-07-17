@@ -11,13 +11,14 @@ function Card() {
   const [location, setLocation] = useState("");
   const [weatherData, setWeatherData] = useState({});
   const [icon, setIcon] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     const interval = setInterval(() => setClock(new Date()), 1000);
 
     const getInitialData = async () => {
       const initialData = await getCurrent('jakarta');
-      setWeatherData(initialData)
+      setUpdates(initialData);
     } 
 
     getInitialData();
@@ -31,11 +32,16 @@ function Card() {
     setLocation(event.target.value);
   };
 
+  const setUpdates = (data) => {
+    setWeatherData(data);
+    setIcon(data.weather[0].main);
+    setDescription(data.weather[0].description);
+  }
+
   const handleLocation = async () => {
     const data = await getCurrent(location);
     console.log(data);
-    setWeatherData(data);
-    setIcon(data.weather[0].main);
+    setUpdates(data)
   };
 
   return (
@@ -55,6 +61,7 @@ function Card() {
         <span className={icon == "Rain" || icon == "Drizzle" ? "material-symbols-outlined active" : "material-symbols-outlined"}>rainy</span>
         <span className={icon == "Clear" ? "material-symbols-outlined active" : "material-symbols-outlined"}>sunny</span>
       </div>
+      <div className="weather-description">{description ?? "--"}</div>
     </div>
   )
 }
